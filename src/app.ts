@@ -3,6 +3,8 @@ import cors from "cors";
 
 // ── Routes ─────────────────────────────────────────────────
 import authRoutes from "../src/routes/authRoutes";
+import postRoutes from "../src/routes/postRoutes/postRoute";
+import followRoutes from "../src/routes/followRoute/followRoute";
 
 const app = express();
 
@@ -21,7 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
 // ── API Routes ─────────────────────────────────────────────
+
+// ✅ Auth routes
 app.use("/api/auth", authRoutes);
+
+// ✅ Post system (posts + likes + comments)
+app.use("/api/posts", postRoutes);
+
+// ✅ Follow system (users follow)
+app.use("/api/users", followRoutes);
 
 // ── Health check ───────────────────────────────────────────
 app.get("/", (_req: Request, res: Response) => {
@@ -45,4 +55,3 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 export default app;
-``;
